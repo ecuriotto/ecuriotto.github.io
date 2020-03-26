@@ -5,11 +5,13 @@ import About        from './views/pages/About.js'
 import Error404     from './views/pages/Error404.js'
 import PostShow     from './views/pages/PostShow.js'
 import Register     from './views/pages/Register.js'
+import SampleChart  from './views/pages/SampleChart.js'
 
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
 
 import Utils        from './services/Utils.js'
+
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
@@ -17,6 +19,7 @@ const routes = {
     , '/about'      : About
     , '/p/:id'      : PostShow
     , '/register'   : Register
+    , '/chart'      : SampleChart
 };
 
 
@@ -45,6 +48,7 @@ const router = async () => {
     // If the parsed URL is not in our list of supported routes, select the 404 page instead
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
     content.innerHTML = await page.render();
+    var k = await page.render();
     await page.after_render();
   
 }
