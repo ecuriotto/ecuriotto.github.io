@@ -18,10 +18,10 @@ let Navbar = {
                     <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
                         <div class="navbar-start">
                             <a class="navbar-item" href="/#/">
-                                Home
+                                Italia
                             </a>
                             <a class="navbar-item" href="/#/about">
-                                About
+                                Regioni
                             </a>
                             <a class="navbar-item" href="/#/secret">
                                 Secret
@@ -42,6 +42,9 @@ let Navbar = {
                     </div>
                 </div>
             </nav>
+            <div class="has-text-centered">                   
+                    <p class="title">STATISTICHE CORONAVIRUS</p>                   
+            </div>    
         `
         return view
     },

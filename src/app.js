@@ -15,7 +15,7 @@ import Utils        from './services/Utils.js'
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
-    '/'             : Home
+    '/'             : SampleChart
     , '/about'      : About
     , '/p/:id'      : PostShow
     , '/register'   : Register

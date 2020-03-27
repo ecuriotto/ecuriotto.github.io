@@ -1,3 +1,5 @@
+import Utils        from '../../services/Utils.js'
+
 let getCovid19Data = async () => {
     const options = {
        method: 'GET',
@@ -17,8 +19,8 @@ let getCovid19Data = async () => {
        const response = await fetch(`./data/dpc-covid19-ita-andamento-nazionale.json`);
        const json = await response.json();
        var arr = json.map(function(obj){return obj["data"];});
-       console.log('json');
-       console.log(json);
+       console.log('chartColors');
+       console.log(Object.values(Utils.chartColors())[0]);
        return json
    } catch (err) {
        console.log('Error getting covid data', err)
@@ -52,31 +54,52 @@ let SampleChart = {
             data: {
                 labels: varLabels,
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'ricoverati_con_sintomi',
                     data: varData,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+                    backgroundColor: Utils.chartColors().red,
+                    borderColor:Utils.chartColors().red,
+                    //borderWidth: 1,
+                    fill : false
+                },
+                {
+                    label: 'terapia_intensiva',
+                    data: covid19Data.map(function(obj){return obj["terapia_intensiva"];}),
+                    backgroundColor: Utils.chartColors().blue,
+                    borderColor:Utils.chartColors().blue,
+                    //borderWidth: 1,
+                    fill : false
+                },
+                {
+                    label: 'nuovi_attualmente_positivi',
+                    data: covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];}),
+                    backgroundColor: Utils.chartColors().yellow,
+                    borderColor:Utils.chartColors().yellow,
+                    //borderWidth: 1,
+                    fill : false
+                },
+                {
+                    label: 'deceduti',
+                    data: covid19Data.map(function(obj){return obj["deceduti"];}),
+                    backgroundColor: Utils.chartColors().green,
+                    borderColor:Utils.chartColors().green,
+                    //borderWidth: 1,
+                    fill : false
+                },
+                {
+                    label: 'dimessi_guariti',
+                    data: covid19Data.map(function(obj){return obj["dimessi_guariti"];}),
+                    backgroundColor: Utils.chartColors().orange,
+                    borderColor:Utils.chartColors().orange,
+                    //borderWidth: 1,
+                    fill : false
+                }],
+                
             },
             options: {
+                responsive: true,
                 scales: {
                     yAxes: [{
-                        stacked: true,
+                        stacked: false,
                         ticks: {                           
                             beginAtZero: true,
                             stepSize:1000
@@ -87,10 +110,10 @@ let SampleChart = {
         });
         return '';
     },
+
     after_render: async () => {}  
         
 }
-
 
 
 export default SampleChart;
