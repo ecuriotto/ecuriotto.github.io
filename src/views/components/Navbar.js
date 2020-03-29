@@ -20,8 +20,11 @@ let Navbar = {
                             <a class="navbar-item" href="/#/">
                                 Italia
                             </a>
-                            <a class="navbar-item" href="/#/about">
+                            <a class="navbar-item" href="/#/regioni">
                                 Regioni
+                            </a>
+                            <a class="navbar-item" href="/#/province">
+                                Province
                             </a>
                             <a class="navbar-item" href="/#/secret">
                                 Secret
@@ -44,7 +47,8 @@ let Navbar = {
             </nav>
             <div class="has-text-centered">                   
                     <p class="title">STATISTICHE CORONAVIRUS</p>                   
-            </div>    
+            </div>
+            <br>   
         `
         return view
     },

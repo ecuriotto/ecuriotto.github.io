@@ -1,34 +1,8 @@
 import Utils        from '../../services/Utils.js'
 
-let getCovid19Data = async () => {
-    const options = {
-       method: 'GET',
-       headers: {
-           'Content-Type': 'application/json',
-           'Content-Type': 'text/plain',
-           'Access-Control-Allow-Origin': '*',
-           'Access-Control-Allow-Methods': 'GET',
-           'Access-Control-Allow-Headers': 'Accept, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
-           'Accept' : '*/*'
-       }
-       //, mode: 'cors'
-   };
-   try {
-       //const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`, options)
-       //const response = await fetch(`https://raw.githack.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`, options)
-       const response = await fetch(`./data/dpc-covid19-ita-andamento-nazionale.json`);
-       const json = await response.json();
-       var arr = json.map(function(obj){return obj["data"];});
-       console.log('chartColors');
-       console.log(Object.values(Utils.chartColors())[0]);
-       return json
-   } catch (err) {
-       console.log('Error getting covid data', err)
-   }
-}
-
-let SampleChart = {
+let Italia = {
     render : async () => {
+
         var page_container = document.getElementById('page_container');
         var canvas = document.createElement('canvas');
         canvas.setAttribute('id','myChart');
@@ -37,13 +11,13 @@ let SampleChart = {
         canvas.width=200;
         canvas.height=200;
         page_container.appendChild(canvas);
-        /*
-        page_container.style.height = '400px';
-        page_container.style.width = '400px';
-        */
+        
+        //page_container.style.height = '1200px';
+        //page_container.style.width = '1200px';
+        
         var ctx = canvas.getContext('2d');
 
-        var covid19Data = await getCovid19Data();
+        var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-andamento-nazionale.json`);
         console.log('covid19Data');
         console.log(covid19Data);
         var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
@@ -116,5 +90,5 @@ let SampleChart = {
 }
 
 
-export default SampleChart;
+export default Italia;
 

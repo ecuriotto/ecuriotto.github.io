@@ -5,21 +5,22 @@ import About        from './views/pages/About.js'
 import Error404     from './views/pages/Error404.js'
 import PostShow     from './views/pages/PostShow.js'
 import Register     from './views/pages/Register.js'
-import SampleChart  from './views/pages/SampleChart.js'
-
+import Italia       from './views/pages/Italia.js'
+import Regioni      from './views/pages/Regioni.js'
+import Province      from './views/pages/Province.js'
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
-
 import Utils        from './services/Utils.js'
 
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
-    '/'             : SampleChart
+    '/'             : Italia
     , '/about'      : About
     , '/p/:id'      : PostShow
     , '/register'   : Register
-    , '/chart'      : SampleChart
+    , '/regioni'    : Regioni
+    , '/province'   : Province
 };
 
 
