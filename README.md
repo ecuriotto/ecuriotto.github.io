@@ -1,14 +1,15 @@
-# vanillajs-spa
-This projects shows how one can make a simple blog (list > details) style single page app using only plain javascript.
+# statistiche coronavirus
+This projects aims to show some statistics about coronavirus in Italy.
+It's made without js framework and it's a single page app
+The skeleton has been forked by Rishav Sharan
 No frameworks or build tools are needed to run this.
 But one will need a web server to serve the html and the js to the browser.
 We can use live-server
 
 ## License (MIT)
-Copyright 2018, Rishav Sharan
+Copyright 2020 , Enrico Curiotto
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 
