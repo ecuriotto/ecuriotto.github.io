@@ -17,26 +17,47 @@ let Italia = {
         
         var ctx = canvas.getContext('2d');
 
-        var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-andamento-nazionale.json`);
+        //var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-andamento-nazionale.json`);
+        const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`);
+        let covid19Data = await response.json();
         console.log('covid19Data');
         console.log(covid19Data);
         var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
         console.log(varLabels);
-        var varData = covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];});
+        //var varData = covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];});
+        
+        var nuoviAttualmentePositivi = covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];});
+        var deceduti = covid19Data.map(function(obj){return obj["deceduti"];});
+        var deltaDeceduti = deceduti.map((curr, i, array) => {
+            return curr-= array[i-1]? array[i-1] : curr
+        });            
+        var dimessiGuariti = covid19Data.map(function(obj){return obj["dimessi_guariti"];});
+        var deltaDimessiGuariti=dimessiGuariti.map((curr, i, array) => {
+            return curr-= array[i-1]? array[i-1] : curr
+        });
+        var deltaAttualmentePositiviData = []
+        for(var i=0; i<nuoviAttualmentePositivi.length; i++){
+            deltaAttualmentePositiviData.push(nuoviAttualmentePositivi[i]-deltaDimessiGuariti[i]-deltaDeceduti[i])
+        }
+        console.log('4 curve');
+        console.log(nuoviAttualmentePositivi);
+        console.log(deltaDimessiGuariti);
+        console.log(deltaDeceduti);
+        console.log(deltaAttualmentePositiviData);
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: varLabels,
                 datasets: [{
-                    label: 'ricoverati_con_sintomi',
-                    data: varData,
+                    label: 'Ricoverati Con Sintomi',
+                    data: covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];}),
                     backgroundColor: Utils.chartColors().red,
                     borderColor:Utils.chartColors().red,
                     //borderWidth: 1,
                     fill : false
                 },
                 {
-                    label: 'terapia_intensiva',
+                    label: 'Terapia Intensiva',
                     data: covid19Data.map(function(obj){return obj["terapia_intensiva"];}),
                     backgroundColor: Utils.chartColors().blue,
                     borderColor:Utils.chartColors().blue,
@@ -44,7 +65,7 @@ let Italia = {
                     fill : false
                 },
                 {
-                    label: 'nuovi_attualmente_positivi',
+                    label: 'Nuovi Attualmente Positivi',
                     data: covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];}),
                     backgroundColor: Utils.chartColors().yellow,
                     borderColor:Utils.chartColors().yellow,
@@ -52,7 +73,7 @@ let Italia = {
                     fill : false
                 },
                 {
-                    label: 'deceduti',
+                    label: 'Deceduti',
                     data: covid19Data.map(function(obj){return obj["deceduti"];}),
                     backgroundColor: Utils.chartColors().green,
                     borderColor:Utils.chartColors().green,
@@ -60,13 +81,22 @@ let Italia = {
                     fill : false
                 },
                 {
-                    label: 'dimessi_guariti',
+                    label: 'Dimessi Guariti',
                     data: covid19Data.map(function(obj){return obj["dimessi_guariti"];}),
                     backgroundColor: Utils.chartColors().orange,
                     borderColor:Utils.chartColors().orange,
                     //borderWidth: 1,
                     fill : false
-                }],
+                },               
+                {
+                    label: 'Delta Attualmente Positivi',
+                    data: deltaAttualmentePositiviData,
+                    backgroundColor: Utils.chartColors().blue2,
+                    borderColor:Utils.chartColors().blue2,
+                    //borderWidth: 1,
+                    fill : false
+                }
+            ],
                 
             },
             options: {

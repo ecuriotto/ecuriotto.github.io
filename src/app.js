@@ -35,6 +35,8 @@ const router = async () => {
     // Render the Header and footer of the page
     header.innerHTML = await Navbar.render();
     await Navbar.after_render();
+
+
     footer.innerHTML = await Bottombar.render();
     await Bottombar.after_render();
 
@@ -51,7 +53,9 @@ const router = async () => {
     content.innerHTML = await page.render();
     var k = await page.render();
     await page.after_render();
-  
+    //Once navbar ready let's change the background color of the current tab for better navigation
+    document.getElementById("nav"+request.resource).className="navbar-item has-background-primary";
+    
 }
 
 // Listen on hash change:

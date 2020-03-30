@@ -52,8 +52,6 @@ let Province = {
                         return curr-= array[i-1]? array[i-1] : curr
                     }         
                     );
-                    console.log('inside');    
-                    console.log(varData);
             }
             
             var indexProvincia = province.indexOf(provincia);           
@@ -76,13 +74,7 @@ let Province = {
         myChart.update();
     },
     render : async () => {
-        
-        var varData = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 9, 9, 9, 38, 75, 104, 125, 173, 204, 241, 291, 376, 436, 548, 621, 678, 724, 781, 858, 906, 1003, 1109].map((curr, i, array) => {
-            return curr-= array[i-1]? array[i-1] : curr
-        }         
-        );
-        //console.log(varData); 
-           
+                  
                
         var page_container = document.getElementById('page_container');
 
@@ -139,7 +131,9 @@ let Province = {
                 }
             }
         });
-    var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-province.json`);
+
+    const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json`);
+    let covid19Data = await response.json();
     var regionSelectArray = [];
     var regionsSelect = document.getElementById('regionsSelect');
     regionSelectArray.push(regionsSelect.value)
@@ -160,7 +154,16 @@ let Province = {
         var regionSelected = document.getElementById('regionsSelect');     
         return regionSelected.value;   
     },
-    after_render: async () => {},
+    after_render: async () => {
+        var navBarItems = document.getElementsByClassName("navbar-item");
+        for (let i = 0; i < navBarItems.length; i++) {
+                navBarItems[i].addEventListener('click',function(obj) {
+                console.log("clicking on nav " + i);
+                console.log(navBarItems[i]);
+                //navBarItems[i].className = "navbar-item has-background-warning" ;
+            },false);
+        }
+    },
 
       
 }

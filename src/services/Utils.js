@@ -53,19 +53,7 @@ const Utils = {
     , randomScalingFactor: () => {
         return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.random() * 100;
     },
-    getCovid19Data: async (filename) => {
 
-        try {
-            //const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`, options)
-            //const response = await fetch(`https://raw.githack.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`, options)
-            const response = await fetch(filename);
-            const json = await response.json();
-            var arr = json.map(function(obj){return obj["data"];});
-            return json
-        } catch (err) {
-            console.log('Error getting covid data', err)
-        }
-     },
     regioni: () => {
         //    const regioni = [...new Set(covid19Data.map(item => item.denominazione_regione))];
         return ["Abruzzo", "Basilicata", "P.A. Bolzano", "Calabria", "Campania", "Emilia Romagna", "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "P.A. Trento", "Umbria", "Valle d'Aosta", "Veneto"];
@@ -80,22 +68,8 @@ const Utils = {
           frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
         }
         return frags.join(' ');
-      },
-      createCORSRequest: async (method, url) => {
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-          // Most browsers.
-          xhr.open(method, url, true);
-        } else if (typeof XDomainRequest != "undefined") {
-          // IE8 & IE9
-          xhr = new XDomainRequest();
-          xhr.open(method, url);
-        } else {
-          // CORS not supported.
-          xhr = null;
-        }
-        return xhr;
       }
+
 
 }
 

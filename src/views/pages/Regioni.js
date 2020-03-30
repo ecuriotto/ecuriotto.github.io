@@ -122,13 +122,15 @@ let Regioni = {
                         stacked: false,
                         ticks: {                           
                             beginAtZero: true,
-                            stepSize:1000
+                            stepSize:200
                         }
                     }]
                 }
             }
         });
-    var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-regioni.json`);
+    const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json`);
+    let covid19Data = await response.json();
+    
     var regionSelectArray = [];
     var regionsSelect = document.getElementById('regionsSelect');
     regionSelectArray.push(regionsSelect.value)
@@ -143,6 +145,8 @@ let Regioni = {
     regionsSelect.addEventListener('change',function() {
         Regioni.updateMyChart(myChart, covid19Data);
     },false);
+    
+    
     return "";
     },
     getRegionsSelected: () => {
@@ -163,7 +167,9 @@ let Regioni = {
         console.log(selections);   
         return selections;   
     },
-    after_render: async () => {},
+    after_render: async () => {
+        
+    },
 
       
 }
