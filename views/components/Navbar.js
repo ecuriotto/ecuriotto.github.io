@@ -4,8 +4,8 @@ let Navbar = {
              <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="container">
                     <div class="navbar-brand">
-                        <a class="navbar-item" href="/#/">
-                            <img src="./externalLib/images/italyFlag.png" alt="" width="112" height="48">
+                        <a class="navbar-item" href="/#/" margin:0px; padding: 0px;>
+                            <img src="./externalLib/images/italyFlag.png" alt="" width="122" height="108" margin:0px; padding: 0px;>
                         </a>
 
                         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMain">
@@ -31,16 +31,11 @@ let Navbar = {
                             </a>
                         </div>
                         <div class="navbar-end">
-                            <div class="navbar-item">
-                                <div class="buttons">
-                                    <a class="button is-primary" href="/#/register">
-                                        <strong>Sign up</strong>
-                                    </a>
-                                    <a class="button is-light">
-                                        Log in
-                                    </a>
-                                </div>
-                            </div>
+                            <!--<div class="navbar-item">-->
+                                <!--<a class="navbar-item" href="https://presse.inserm.fr/">-->
+                                    <img src="./externalLib/images/coronavirus.jpg" alt="https://presse.inserm.fr/" width="132" height="58" margin:0px; padding: 0px;>
+                                <!--</a>-->                 
+                           <!-- </div> -->
                         </div>
                     </div>
                 </div>
