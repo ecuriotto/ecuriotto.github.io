@@ -68,7 +68,20 @@ const Utils = {
           frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
         }
         return frags.join(' ');
+      },
+      getStepSize: (arrayWithNumbers) =>{
+                  //We want a fixed number of ticks, i.e. 10. We got the max value and we define the step size
+        var totalMax = Math.max(...arrayWithNumbers);       
+        var numberOfDigitsInTotalMaxMin1 = totalMax.toString().length-1
+        var roundFactor = 10**numberOfDigitsInTotalMaxMin1;
+        var roundedMax = Math.ceil(totalMax / roundFactor) * roundFactor;
+        console.log(totalMax);
+        console.log(numberOfDigitsInTotalMaxMin1);
+        console.log(roundFactor);
+        console.log(roundedMax);
+        return roundedMax>100?roundedMax/10:roundedMax/5;
       }
+
 
 
 }

@@ -34,25 +34,22 @@ let Province = {
         var varData = covid19Data.filter(function(obj){return obj["denominazione_regione"]==region;}).filter(function(obj2){return !obj2["denominazione_provincia"].includes("definizione")})
         const varLabels = [...new Set(varData.map(item => item.data.substring(5,10)))];
         const province =  [...new Set(varData.map(item => item.denominazione_provincia))];
-        console.log(varData);
-        console.log(varLabels);
-        console.log(province);
+        var maxRegion = [];
 
         myChart.data.datasets=[];
-        var regions = [];
         province.forEach(createLine);
         function createLine(provincia){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_provincia"]==provincia;}).map(function(objMap){return objMap["totale_casi"]})
             /*nuovi_casi_positivi non è un dato fornito ma dobbiamo derivarlo. facciamo la differenza tra il totale de casi tra un giorno e il precedente
             */
-           console.log(varData); 
-           console.log(tipoCaso);
+            
             if(tipoCaso=="nuovi_casi_positivi"){
                     varData = varData.map((curr, i, array) => {
                         return curr-= array[i-1]? array[i-1] : curr
                     }         
                     );
             }
+            maxRegion.push(Math.max(...varData));
             
             var indexProvincia = province.indexOf(provincia);           
             var colorValues = Object.values(Utils.chartColors());
@@ -66,11 +63,11 @@ let Province = {
                     data: varData,
                     backgroundColor: color,
                     borderColor:color,
-                    //borderWidth: 1,
                     fill : false
                 });              
         }
 
+        myChart.options.scales.yAxes[0].ticks.stepSize=Utils.getStepSize(maxRegion);
         myChart.update();
     },
     render : async () => {

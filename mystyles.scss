@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 // Import only what you need from Bulma
-//$navbar-item-img-max-height:3em;
+$navbar-item-img-max-height:3em;
 
 @import "./node_modules/bulma/bulma.sass";
 @import "./node_modules/bulma/sass/components/navbar.sass";

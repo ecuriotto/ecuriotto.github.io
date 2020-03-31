@@ -43,6 +43,7 @@ let Regioni = {
         var regions = Regioni.getRegionsSelected();
 
         //console.log(varLabels);
+        var maxRegion = []; 
         //console.log('updateMyChart');
         var tipoCaso = document.querySelector('input[name="tipoCasoRadio"]:checked').value;
         //console.log(varLabels);
@@ -51,6 +52,7 @@ let Regioni = {
         function createLine(region, index){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_regione"]==region;}).map(function(objMap){return objMap[tipoCaso]})
             console.log(varData);
+            maxRegion.push(Math.max(...varData));
             var indexRegion = Utils.regioni().indexOf(region);           
             var colorValues = Object.values(Utils.chartColors());
             var color = colorValues[indexRegion];
@@ -63,11 +65,10 @@ let Regioni = {
                     data: varData,
                     backgroundColor: color,
                     borderColor:color,
-                    //borderWidth: 1,
                     fill : false
                 });              
         }
-
+        myChart.options.scales.yAxes[0].ticks.stepSize=Utils.getStepSize(maxRegion);
         myChart.update();
     },
     render : async () => {
