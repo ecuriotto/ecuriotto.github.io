@@ -26,9 +26,11 @@ let Navbar = {
                             <a class="navbar-item" id="navprovince" href="/#/province">
                                 Province
                             </a>
+                            <!--
                             <a class="navbar-item" id="navsecret" href="/#/secret">
                                 Secret
                             </a>
+                            -->
                         </div>
                         <div class="navbar-end">
                             <!--<div class="navbar-item">-->

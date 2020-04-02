@@ -56,10 +56,10 @@ const Utils = {
 
     regioni: () => {
         //    const regioni = [...new Set(covid19Data.map(item => item.denominazione_regione))];
-        return ["Abruzzo", "Basilicata", "P.A. Bolzano", "Calabria", "Campania", "Emilia Romagna", "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "P.A. Trento", "Umbria", "Valle d'Aosta", "Veneto"];
+        return ["Abruzzo", "Basilicata", "P.A. Bolzano", "Calabria", "Campania", "Emilia-Romagna", "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "P.A. Trento", "Umbria", "Valle d'Aosta", "Veneto"];
     },
     tipoCaso: () => {
-        return ["ricoverati_con_sintomi","terapia_intensiva","totale_ospedalizzati","isolamento_domiciliare", "totale_attualmente_positivi","nuovi_attualmente_positivi","dimessi_guariti","deceduti","totale_casi","tamponi"];
+        return ["ricoverati_con_sintomi","terapia_intensiva","totale_ospedalizzati","isolamento_domiciliare", "variazione_totale_positivi","nuovi_positivi","dimessi_guariti","deceduti","totale_positivi","tamponi"];
     },
     humanize: (str) => {
         //convert underscore in spaces and capitalize first letters
@@ -80,6 +80,33 @@ const Utils = {
         console.log(roundFactor);
         console.log(roundedMax);
         return roundedMax>100?roundedMax/10:roundedMax/5;
+      },
+
+      getTableData: (covid19Data) =>{
+        
+        var covid19DataOrdered=covid19Data.sort((a,b) => (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0)); 
+        var html = '<section class="tab-content"><table class="table is-striped is-narrow is-bordered">';
+        html += '<thead><tr>';
+        for( var j in covid19DataOrdered[0] ) {
+            if(Utils.tipoCaso().includes(j)||j=="data"){
+                html += '<th class="is-size-7">' + Utils.humanize(j).replace(' ','<BR>') + '</th>';
+            }
+        }
+        html += '</tr></thead><tbody>';
+        for( var i = 0; i < covid19DataOrdered.length; i++) {
+         html += '<tr>';
+         for( var j in covid19DataOrdered[i] ) {
+            if(Utils.tipoCaso().includes(j)){
+                html += '<td class="is-size-7">' + covid19DataOrdered[i][j] + '</td>';
+            }
+            if(j=="data"){
+                html += '<td class="is-size-7">' + covid19DataOrdered[i][j].substring(5,10) + '</td>';
+            }
+         }
+         html += '</tr>';
+        }
+        html += '</tbody></table></section>';
+        return html;
       }
 
 

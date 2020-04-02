@@ -65,8 +65,8 @@ let Italia = {
                     fill : false
                 },
                 {
-                    label: 'Nuovi Attualmente Positivi',
-                    data: covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];}),
+                    label: 'Nuovi Positivi',
+                    data: covid19Data.map(function(obj){return obj["nuovi_positivi"];}),
                     backgroundColor: Utils.chartColors().yellow,
                     borderColor:Utils.chartColors().yellow,
                     //borderWidth: 1,
@@ -85,14 +85,6 @@ let Italia = {
                     data: covid19Data.map(function(obj){return obj["dimessi_guariti"];}),
                     backgroundColor: Utils.chartColors().orange,
                     borderColor:Utils.chartColors().orange,
-                    //borderWidth: 1,
-                    fill : false
-                },               
-                {
-                    label: 'Delta Attualmente Positivi',
-                    data: deltaAttualmentePositiviData,
-                    backgroundColor: Utils.chartColors().blue2,
-                    borderColor:Utils.chartColors().blue2,
                     //borderWidth: 1,
                     fill : false
                 }

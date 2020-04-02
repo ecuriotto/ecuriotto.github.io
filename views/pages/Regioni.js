@@ -1,11 +1,11 @@
 import Utils        from '../../services/Utils.js'
-
+import DataGraphTab from './DataGraphTab.js'
 
 
 let Regioni = {
     getComboRegioni: () => {
-        var before = `<div class="select is-multiple is-12"><select id="regionsSelect" multiple size="8">`;
-        var after = `</select></div>`;
+        //var before = `<div class="select is-multiple is-12"><select id="regionsSelect" multiple size="8">`;
+        //var after = `</select></div>`;
         var options = "";
         Utils.regioni().forEach(element => {
             if(element=="Lombardia"){
@@ -15,28 +15,27 @@ let Regioni = {
                 options += `<option value="` + element +`">`+element+`</option>`;
             } 
         });
-        return before + options + after;
+        return options;//before + options + after;
     },
     getComboTipoCaso: () => {
-        var before = `<div class="column is-full"><div class="field" id="globalRadioId">`;
-        var after = `</div></div>`;
+
         var radio = "";
         var i=0;
         Utils.tipoCaso().forEach(element => {
-            if(i==5)
-                radio+=`<BR>`;
-            if(element=="nuovi_attualmente_positivi"){
-                radio += `<input class="is-checkradio is-small is-rtl" id="tipoCasoRadio`+i+`" type="radio" name="tipoCasoRadio" checked="checked" value="`+element+`">`;
+
+            
+            if(element=="nuovi_positivi"){
+                radio += `<input class="is-checkradio is-small is-rtl" id="tipoCasoRadio`+i+`" type="radio" name="tipoCasoRadio" checked="checked" value="`+element+`" />`;
             }
             else{
-                radio += `<input class="is-checkradio is-small is-rtl" id="tipoCasoRadio`+i+`" type="radio" name="tipoCasoRadio" value="`+element+`">`;
+                radio += `<input class="is-checkradio is-small is-rtl" id="tipoCasoRadio`+i+`" type="radio" name="tipoCasoRadio" value="`+element+`" />`;
             }
-            radio+=`<label for="tipoCasoRadio`+i+`">`+element+`</label>`;
+            radio+=`<label for="tipoCasoRadio`+i+`">`+Utils.humanize(element)+`</label>`;    
             i++;
         });
-        return before + radio + after;
+        return radio;
     },
-    updateMyChart : (myChart, covid19Data) => {
+    updateMyChart  : (myChart, covid19Data) => {
 
         //var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
         const varLabels = [...new Set(covid19Data.map(item => item.data.substring(5,10)))];
@@ -48,7 +47,12 @@ let Regioni = {
         var tipoCaso = document.querySelector('input[name="tipoCasoRadio"]:checked').value;
         //console.log(varLabels);
         myChart.data.datasets=[];
+        console.log(covid19Data.filter(function(obj){return obj["denominazione_regione"]==regions[0];}));
+        var dataTable = document.getElementById('dataTable');
+        
+        dataTable.innerHTML = Utils.getTableData(covid19Data.filter(function(obj){return obj["denominazione_regione"]==regions[0];}));
         regions.forEach(createLine);
+        
         function createLine(region, index){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_regione"]==region;}).map(function(objMap){return objMap[tipoCaso]})
             console.log(varData);
@@ -73,40 +77,17 @@ let Regioni = {
     },
     render : async () => {
 
-
         var page_container = document.getElementById('page_container');
-
-        var secondRow = document.createElement('secondRow');
-        secondRow.className = "columns";
-        var firstDivInPageContainer = document.createElement('firstDivInPageContainer');
-        firstDivInPageContainer.className = "column is-10";
-
-        var dropDownRegions = document.createElement('dropDownRegions');
-        dropDownRegions.className = "column is-2";
-
-        var radioTipoCaso = document.createElement('radioTipoCaso');
-        radioTipoCaso.className = "columns";
-
-        
-        dropDownRegions.innerHTML = Regioni.getComboRegioni();
+        page_container = await DataGraphTab.render();       
+        var regionsSelect = document.getElementById('regionsSelect');
+        var radioTipoCaso = document.getElementById('radioTipoCaso');
+        regionsSelect.innerHTML = Regioni.getComboRegioni();
         radioTipoCaso.innerHTML = Regioni.getComboTipoCaso();
-
-
-        //firstDivInPageContainer.innerHTML = `<div>`;
-        var canvas = document.createElement('canvas');
-        canvas.setAttribute('id','myChart');
-
+        //var regionSelectArray = [];
         
-        page_container.appendChild(radioTipoCaso);
-        page_container.appendChild(secondRow);
-        
-        secondRow.appendChild(dropDownRegions);
-        secondRow.appendChild(firstDivInPageContainer);
-        //page_container.appendChild(radioTipoCaso);
-
-        firstDivInPageContainer.appendChild(canvas);
+        //regionSelectArray.push(regionsSelect.value)
                      
-
+        var canvas = document.getElementById('myChart');
         //Initialize empty chart
         var ctx = canvas.getContext('2d');
         var myChart = new Chart(ctx, {
@@ -129,30 +110,32 @@ let Regioni = {
                 }
             }
         });
-    const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json`);
-    let covid19Data = await response.json();
-    
-    var regionSelectArray = [];
-    var regionsSelect = document.getElementById('regionsSelect');
-    regionSelectArray.push(regionsSelect.value)
-    Regioni.updateMyChart(myChart, covid19Data);
+        var regionsSelect = document.getElementById('regionsSelect');
+        var radioTipoCasoSelect = document.getElementById('globalRadioId');
+        console.log(radioTipoCasoSelect);
+        radioTipoCasoSelect.addEventListener('click',function() {
+            Regioni.updateMyChart(myChart, covid19Data);
+        },false);
 
-    var radioTipoCasoSelect = document.getElementById('globalRadioId');//document.querySelector('input[name="tipoCasoRadio"]:checked').value;
+        regionsSelect.addEventListener('change',function() {
+            Regioni.updateMyChart(myChart, covid19Data);
+        },false);
+        
+        const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json`);
+        let covid19Data = await response.json();
+        
 
-    radioTipoCasoSelect.addEventListener('click',function() {
         Regioni.updateMyChart(myChart, covid19Data);
-    },false);
 
-    regionsSelect.addEventListener('change',function() {
-        Regioni.updateMyChart(myChart, covid19Data);
-    },false);
-    
-    
-    return "";
+
+        
+        
+        return "";
     },
     getRegionsSelected: () => {
         
-        var regionsSelect = document.getElementById('regionsSelect');   
+        var regionsSelect = document.getElementById('regionsSelect');
+        console.log(regionsSelect);
         var selections = [];
         if(typeof regionsSelect=="string")
             selections.push(regionsSelect.value);
@@ -171,6 +154,7 @@ let Regioni = {
     after_render: async () => {
         
     },
+    
 
       
 }

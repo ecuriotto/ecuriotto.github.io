@@ -6,9 +6,15 @@ let Province = {
     getComboRegioni: () => {
         var before = `<div class="field"><div class="control"><div class="select"><select id="regionsSelect">`;
         var after = `</select></div></div></div>`;
-        var options = `<option selected="selected" disabled value="">Scegli la regione</option>`;;
+        var options = ``;
         Utils.regioni().forEach(element => {
-            options += `<option value="` + element +`">`+element+`</option>`;
+            if(element == "Piemonte"){
+                options += `<option selected="selected" value="` + element +`">`+element+`</option>`;
+            }
+            else{
+                options += `<option value="` + element +`">`+element+`</option>`;
+            }
+            
         });
         return before + options + after;
     },
