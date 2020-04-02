@@ -39,7 +39,7 @@ let DataGraphTab = {
 
                     <div>
                         <section><canvas id='myChart' class='tab-content'></canvas></section>
-                        <section><div id='dataTable' class="tab-content"></div></section>
+                        <section><div id='dataTable' class="tab-content columns"></div></section>
                     </div>            
                 </div>
             </div>
@@ -68,7 +68,7 @@ let DataGraphTab = {
             };
 
             let activateTabsContent = function (tab) {
-                tabsContent[getIndex(tab)].style.display = "block";
+                tabsContent[getIndex(tab)].style.display = "";
                 tabsContent[getIndex(tab)].classList.add('is-active');
             };
 

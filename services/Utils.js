@@ -82,32 +82,7 @@ const Utils = {
         return roundedMax>100?roundedMax/10:roundedMax/5;
       },
 
-      getTableData: (covid19Data) =>{
-        
-        var covid19DataOrdered=covid19Data.sort((a,b) => (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0)); 
-        var html = '<section class="tab-content"><table class="table is-striped is-narrow is-bordered">';
-        html += '<thead><tr>';
-        for( var j in covid19DataOrdered[0] ) {
-            if(Utils.tipoCaso().includes(j)||j=="data"){
-                html += '<th class="is-size-7">' + Utils.humanize(j).replace(' ','<BR>') + '</th>';
-            }
-        }
-        html += '</tr></thead><tbody>';
-        for( var i = 0; i < covid19DataOrdered.length; i++) {
-         html += '<tr>';
-         for( var j in covid19DataOrdered[i] ) {
-            if(Utils.tipoCaso().includes(j)){
-                html += '<td class="is-size-7">' + covid19DataOrdered[i][j] + '</td>';
-            }
-            if(j=="data"){
-                html += '<td class="is-size-7">' + covid19DataOrdered[i][j].substring(5,10) + '</td>';
-            }
-         }
-         html += '</tr>';
-        }
-        html += '</tbody></table></section>';
-        return html;
-      }
+
 
 
 

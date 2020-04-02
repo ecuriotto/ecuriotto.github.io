@@ -39,11 +39,6 @@ let Italia = {
         for(var i=0; i<nuoviAttualmentePositivi.length; i++){
             deltaAttualmentePositiviData.push(nuoviAttualmentePositivi[i]-deltaDimessiGuariti[i]-deltaDeceduti[i])
         }
-        console.log('4 curve');
-        console.log(nuoviAttualmentePositivi);
-        console.log(deltaDimessiGuariti);
-        console.log(deltaDeceduti);
-        console.log(deltaAttualmentePositiviData);
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {

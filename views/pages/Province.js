@@ -1,5 +1,5 @@
 import Utils        from '../../services/Utils.js'
-
+import DataGraphTab from './DataGraphTab.js'
 
 
 let Province = {
@@ -41,9 +41,15 @@ let Province = {
         const varLabels = [...new Set(varData.map(item => item.data.substring(5,10)))];
         const province =  [...new Set(varData.map(item => item.denominazione_provincia))];
         var maxRegion = [];
+        
 
         myChart.data.datasets=[];
-        province.forEach(createLine);
+
+        var dataTable = document.getElementById('dataTable');       
+        var htmlData = '';
+        for(var provincia of province){
+            htmlData += createLine(provincia)
+        }
         function createLine(provincia){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_provincia"]==provincia;}).map(function(objMap){return objMap["totale_casi"]})
             /*nuovi_casi_positivi non è un dato fornito ma dobbiamo derivarlo. facciamo la differenza tra il totale de casi tra un giorno e il precedente
@@ -55,6 +61,7 @@ let Province = {
                     }         
                     );
             }
+            htmlData=Province.getTableData(varLabels,varData, provincia);
             maxRegion.push(Math.max(...varData));
             
             var indexProvincia = province.indexOf(provincia);           
@@ -70,48 +77,27 @@ let Province = {
                     backgroundColor: color,
                     borderColor:color,
                     fill : false
-                });              
+            });
+            return htmlData;
+                         
         }
-
+        dataTable.innerHTML = htmlData;
         myChart.options.scales.yAxes[0].ticks.stepSize=Utils.getStepSize(maxRegion);
         myChart.update();
     },
     render : async () => {
-                  
-               
+                               
         var page_container = document.getElementById('page_container');
-
-        var secondRow = document.createElement('secondRow');
-        secondRow.className = "columns";
-        var firstDivInPageContainer = document.createElement('firstDivInPageContainer');
-        firstDivInPageContainer.className = "column is-10";
-
-        var dropDownRegions = document.createElement('dropDownRegions');
-        dropDownRegions.className = "column is-2";
-
-        var radioTipoCaso = document.createElement('radioTipoCaso');
-        radioTipoCaso.className = "columns";
-
-        
-        dropDownRegions.innerHTML = Province.getComboRegioni();
+        page_container = await DataGraphTab.render();       
+        var regionsSelect = document.getElementById('regionsSelect');
+        var radioTipoCaso = document.getElementById('radioTipoCaso');
+        regionsSelect.innerHTML = Province.getComboRegioni();
         radioTipoCaso.innerHTML = Province.getComboTipoCaso();
 
 
         //firstDivInPageContainer.innerHTML = `<div>`;
-        var canvas = document.createElement('canvas');
+        var canvas = document.getElementById('myChart');
         canvas.setAttribute('id','myChart');
-
-        
-        page_container.appendChild(radioTipoCaso);
-        page_container.appendChild(secondRow);
-        
-        secondRow.appendChild(dropDownRegions);
-        secondRow.appendChild(firstDivInPageContainer);
-        //page_container.appendChild(radioTipoCaso);
-
-        firstDivInPageContainer.appendChild(canvas);
-                     
-
         //Initialize empty chart
         var ctx = canvas.getContext('2d');
         var myChart = new Chart(ctx, {
@@ -151,6 +137,8 @@ let Province = {
     regionsSelect.addEventListener('change',function() {
         Province.updateMyChart(myChart, covid19Data);
     },false);
+
+    Province.updateMyChart(myChart, covid19Data);
     return "";
     },
     getRegionSelected: () => {       
@@ -161,12 +149,30 @@ let Province = {
         var navBarItems = document.getElementsByClassName("navbar-item");
         for (let i = 0; i < navBarItems.length; i++) {
                 navBarItems[i].addEventListener('click',function(obj) {
-                console.log("clicking on nav " + i);
-                console.log(navBarItems[i]);
-                //navBarItems[i].className = "navbar-item has-background-warning" ;
             },false);
         }
     },
+    getTableData: (varLabels,varData, provincia) =>{
+               
+        
+        //area can be an array of the regions or province selected
+        var html = '';
+        html += '<div class="column"><div class="has-text-link has-text-weight-bold is-uppercase">'+provincia+'</div><br><table class="table is-striped is-narrow is-bordered">';
+            html += '<thead><tr>';
+            html += '<th class="is-size-7">Data</th>';             
+            html += '<th class="is-size-7">'+provincia+'</th>';                         
+            html += '</tr></thead><tbody>';
+
+            var i=varLabels.length-1;
+            while(i >= 0) {                              
+                html += '<tr><td class="is-size-7">' + varLabels[i] + '</td>';                  
+                html += '<td class="is-size-7">' + varData[i] + '</td>';                   
+                html += '</tr>';                
+                i--;
+            }            
+            html += '</tbody></table></div>';
+        return html;
+      }
 
       
 }
