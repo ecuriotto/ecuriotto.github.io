@@ -8,6 +8,7 @@ import Register     from './views/pages/Register.js'
 import Italia       from './views/pages/Italia.js'
 import Regioni      from './views/pages/Regioni.js'
 import Province      from './views/pages/Province.js'
+import France        from './views/pages/France.js'
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
 import Utils        from './services/Utils.js'
@@ -21,6 +22,7 @@ const routes = {
     , '/register'   : Register
     , '/regioni'    : Regioni
     , '/province'   : Province
+    , '/france'     : France
 };
 
 
@@ -54,8 +56,7 @@ const router = async () => {
     var k = await page.render();
     await page.after_render();
     //Once navbar ready let's change the background color of the current tab for better navigation
-    document.getElementById("nav"+request.resource).className="navbar-item has-background-primary";
-    
+    document.getElementById("nav"+request.resource).className="navbar-item has-background-primary";   
 }
 
 // Listen on hash change:

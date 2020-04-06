@@ -82,6 +82,22 @@ const Utils = {
         return roundedMax>100?roundedMax/10:roundedMax/5;
       },
 
+      csvToJson:(csv) => {
+        var lines=csv.split("\n");
+        var result = [];
+        var headers=lines[0].replace(/"/g,'').replace(/\r/g,'').split(";");     
+        console.log(headers);
+        //.map(function(objMap){return objMap.replace('"','')})
+        for(var i=1;i<lines.length;i++){      
+            var obj = {};
+            var currentline=lines[i].replace(/"/g,'').replace(/\r/g,'').split(";");     
+            for(var j=0;j<headers.length;j++){
+                obj[headers[j]] = currentline[j];
+            }     
+            result.push(obj);      
+        }     
+        return result; //JSON
+      }
 
 
 
