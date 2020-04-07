@@ -46,17 +46,17 @@ let France = {
         rad: Total amount of patient that returned home
         dc: Total amout of deaths at the hospital
         */
-        var tipoMisura = ["hosp","rea","rad","dc"];
+        var tipoMisura = {"hosp":" Number of people currently hospitalized","rea":"Number of people currently in resuscitation or critical care","rad":"Total amount of patient that returned home","dc":"Total amout of deaths at the hospital"};
         myChart.data.datasets=[];
 
         var dataTable = document.getElementById('dataTable');
         
         dataTable.innerHTML = France.getTableData(covid19Data, regions);
         var indexRegion = 0;
-        tipoMisura.forEach(createLine);
+        Object.keys(tipoMisura).forEach(createLine);
 
-        function createLine(tipoMisura, index){
-            var varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisura]})
+        function createLine(tipoMisuraKey, index){
+            var varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
             console.log(varData);
             maxRegion.push(Math.max(...varData));
             
@@ -65,12 +65,12 @@ let France = {
             console.log('indexRegion' + indexRegion);
             var color = colorValues[indexRegion];
             console.log(colorValues[0]);
-            myChart.options.title.text = Utils.humanize(tipoMisura);
+            myChart.options.title.text = regions[0];
             myChart.options.title.fontSize = 16;
             myChart.options.title.display = true;
             myChart.data.labels= varLabels;
             myChart.data.datasets.push({
-                    label: tipoMisura,
+                    label: tipoMisura[tipoMisuraKey],
                     data: varData,
                     backgroundColor: color,
                     borderColor:color,
@@ -89,9 +89,6 @@ let France = {
         var radioTipoCaso = document.getElementById('radioTipoCaso');
         regionsSelect.innerHTML = await France.getComboRegioni();
         radioTipoCaso.innerHTML = France.getComboTipoCaso();
-        //var regionSelectArray = [];
-        
-        //regionSelectArray.push(regionsSelect.value)
                      
         var canvas = document.getElementById('myChart');
         //Initialize empty chart
@@ -127,7 +124,8 @@ let France = {
             France.updateMyChart(myChart, covid19Data);
         },false);
         
-        const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200405-190003/donnees-hospitalieres-covid19-2020-04-05-19h00.csv`);
+        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200405-190003/donnees-hospitalieres-covid19-2020-04-05-19h00.csv`);
+        const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200406-190011/donnees-hospitalieres-covid19-2020-04-06-19h00.csv`);
         let covid19DataCsv = await response.text();
         //console.log('France data:');
         var covid19Data = Utils.csvToJson(covid19DataCsv);
