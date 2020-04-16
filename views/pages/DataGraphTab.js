@@ -76,10 +76,8 @@ let DataGraphTab = {
                 return [...el.parentElement.children].indexOf(el);
             };
 
-            tabs.forEach(function (tab) {
-                
+            tabs.forEach(function (tab) {              
                 tab.addEventListener('click', function () {
-                    console.log(tab)
                     deactivateAllTabs();
                     hideTabsContent();
                     tab.classList.add('is-active');

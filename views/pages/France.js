@@ -1,20 +1,29 @@
+
+
 import Utils        from '../../services/Utils.js'
 import DataGraphTab from './DataGraphTab.js'
-
 
 let France = {
     getComboRegioni: async () => {
         var response = await fetch(`../../data/french-regions-departments.json`);
         let regions = await response.json();
+        //console.log(regions);
         var departmentCodes = Object.keys(regions.departments);
+        var departmentsSortableStructure = [];
+        for(var depOrig in regions.departments){
+            var newDep = regions.departments[depOrig];
+            newDep.code = depOrig;
+            departmentsSortableStructure.push(newDep);
+        }
         var options = "";
-        
-        departmentCodes.forEach(element => {
-            if(element=="38"){
-                options += `<option selected="selected" value="` + element +`">`+regions.departments[element].formatted_name+`</option>`;
+        departmentsSortableStructure=departmentsSortableStructure.sort((a,b)=> (a.name > b.name) ? 1 : -1);
+
+        departmentsSortableStructure.forEach(element => {
+            if(element.code=="38"){
+                options += `<option selected="selected" value="` + element.code +`">`+element.formatted_name+`</option>`;
             }
             else{
-                options += `<option value="` + element +`">`+regions.departments[element].formatted_name+`</option>`;
+                options += `<option value="` + element.code +`">`+element.formatted_name+`</option>`;
             } 
         });
         return options;//before + options + after;
@@ -57,14 +66,10 @@ let France = {
 
         function createLine(tipoMisuraKey, index){
             var varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
-            console.log(varData);
-            maxRegion.push(Math.max(...varData));
             
-            //var indexRegion = Utils.regioni().indexOf(region);           
-            var colorValues = Object.values(Utils.chartColors());
-            console.log('indexRegion' + indexRegion);
+            maxRegion.push(Math.max(...varData));         
+            var colorValues = Object.values(Utils.chartColors());           
             var color = colorValues[indexRegion];
-            console.log(colorValues[0]);
             myChart.options.title.text = regions[0];
             myChart.options.title.fontSize = 16;
             myChart.options.title.display = true;
@@ -115,7 +120,6 @@ let France = {
         });
         var regionsSelect = document.getElementById('regionsSelect');
         var radioTipoCasoSelect = document.getElementById('globalRadioId');
-        console.log(radioTipoCasoSelect);
         radioTipoCasoSelect.addEventListener('click',function() {
             France.updateMyChart(myChart, covid19Data);
         },false);
@@ -125,20 +129,20 @@ let France = {
         },false);
         
         //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200405-190003/donnees-hospitalieres-covid19-2020-04-05-19h00.csv`);
-        const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200406-190011/donnees-hospitalieres-covid19-2020-04-06-19h00.csv`);
+        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200406-190011/donnees-hospitalieres-covid19-2020-04-06-19h00.csv`);
+        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200407-190012/donnees-hospitalieres-covid19-2020-04-07-19h00.csv`);
+        const response = await fetch(`../../data/donneesFr.csv`);
+
         let covid19DataCsv = await response.text();
-        //console.log('France data:');
         var covid19Data = Utils.csvToJson(covid19DataCsv);
         
         covid19Data = covid19Data.filter(function(obj){if (obj.jour) return obj});
-        console.log(covid19Data);
         France.updateMyChart(myChart, covid19Data);       
         return "";
     },
     getRegionsSelected: () => {
         
         var regionsSelect = document.getElementById('regionsSelect');
-        console.log(regionsSelect);
         var selections = [];
         if(typeof regionsSelect=="string")
             selections.push(regionsSelect.value);

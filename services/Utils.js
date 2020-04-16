@@ -75,10 +75,6 @@ const Utils = {
         var numberOfDigitsInTotalMaxMin1 = totalMax.toString().length-1
         var roundFactor = 10**numberOfDigitsInTotalMaxMin1;
         var roundedMax = Math.ceil(totalMax / roundFactor) * roundFactor;
-        console.log(totalMax);
-        console.log(numberOfDigitsInTotalMaxMin1);
-        console.log(roundFactor);
-        console.log(roundedMax);
         return roundedMax>100?roundedMax/10:roundedMax/5;
       },
 
@@ -86,7 +82,6 @@ const Utils = {
         var lines=csv.split("\n");
         var result = [];
         var headers=lines[0].replace(/"/g,'').replace(/\r/g,'').split(";");     
-        console.log(headers);
         //.map(function(objMap){return objMap.replace('"','')})
         for(var i=1;i<lines.length;i++){      
             var obj = {};

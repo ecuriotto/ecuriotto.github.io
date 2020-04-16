@@ -20,11 +20,7 @@ let Italia = {
         //var covid19Data = await Utils.getCovid19Data(`./data/dpc-covid19-ita-andamento-nazionale.json`);
         const response = await fetch(`https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`);
         let covid19Data = await response.json();
-        console.log('covid19Data');
-        console.log(covid19Data);
         var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
-        console.log(varLabels);
-        //var varData = covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];});
         
         var nuoviAttualmentePositivi = covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];});
         var deceduti = covid19Data.map(function(obj){return obj["deceduti"];});
@@ -35,17 +31,18 @@ let Italia = {
         var deltaDimessiGuariti=dimessiGuariti.map((curr, i, array) => {
             return curr-= array[i-1]? array[i-1] : curr
         });
-        var deltaAttualmentePositiviData = []
-        for(var i=0; i<nuoviAttualmentePositivi.length; i++){
-            deltaAttualmentePositiviData.push(nuoviAttualmentePositivi[i]-deltaDimessiGuariti[i]-deltaDeceduti[i])
-        }
+        var ricoveratiConSintomi = covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];});
+        var deltaRicoveratiConSintomi=ricoveratiConSintomi.map((curr, i, array) => {
+            return curr-= array[i-1]? array[i-1] : curr
+        });
+
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: varLabels,
                 datasets: [{
-                    label: 'Ricoverati Con Sintomi',
-                    data: covid19Data.map(function(obj){return obj["ricoverati_con_sintomi"];}),
+                    label: 'Delta Ricoverati Con Sintomi (Tot:' + ricoveratiConSintomi.slice(-1)[0] + ')',
+                    data: deltaRicoveratiConSintomi,
                     backgroundColor: Utils.chartColors().red,
                     borderColor:Utils.chartColors().red,
                     //borderWidth: 1,
@@ -68,16 +65,16 @@ let Italia = {
                     fill : false
                 },
                 {
-                    label: 'Deceduti',
-                    data: covid19Data.map(function(obj){return obj["deceduti"];}),
+                    label: 'Delta Deceduti (Tot:' + deceduti.slice(-1)[0] + ')',
+                    data: deltaDeceduti,
                     backgroundColor: Utils.chartColors().green,
                     borderColor:Utils.chartColors().green,
                     //borderWidth: 1,
                     fill : false
                 },
                 {
-                    label: 'Dimessi Guariti',
-                    data: covid19Data.map(function(obj){return obj["dimessi_guariti"];}),
+                    label: 'Delta Dimessi Guariti (Tot:' + dimessiGuariti.slice(-1)[0] + ')',
+                    data: deltaDimessiGuariti,
                     backgroundColor: Utils.chartColors().orange,
                     borderColor:Utils.chartColors().orange,
                     //borderWidth: 1,
