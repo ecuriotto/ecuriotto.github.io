@@ -4,15 +4,33 @@ import Utils        from '../../services/Utils.js'
 import DataGraphTab from './DataGraphTab.js'
 
 let France = {
-    getComboRegioni: async () => {
+    getComboRegioni: async (covid19Data) => {
         var response = await fetch(`../../data/french-regions-departments.json`);
         let regions = await response.json();
         console.log(regions);
+
+        //We want to get the order of departments for hosp cases
+        //First Let's get the last day of the array
+        var lastDay = covid19Data.reduce(function(prev,cur){
+            var curInt = parseInt(cur.jour.replace('-',''));
+            if(prev && parseInt(prev.jour.replace('-',''))>curInt){
+                return prev;
+            }
+            else 
+                return cur
+        });
+        //console.log(lastDay.jour);
+        var orderOfCases =1;
+        var depSortedByHospCasesInLastDay = covid19Data.filter(function(obj){return obj.sexe == '0'}).filter(function(obj){return obj.jour == lastDay.jour}).sort((a,b)=> (parseInt(a.hosp) < parseInt(b.hosp)) ? 1 : -1).map((function(objMap){objMap.orderOfCases = orderOfCases++; return objMap}));
+        console.log(depSortedByHospCasesInLastDay)
         var departmentCodes = Object.keys(regions.departments);
         var departmentsSortableStructure = [];
         for(var depOrig in regions.departments){
             var newDep = regions.departments[depOrig];
             newDep.code = depOrig;
+            var orderOfCasesDep = depSortedByHospCasesInLastDay.filter(function(obj){return obj.dep==newDep.code});
+            console.log(newDep.code);
+            newDep.orderOfCases = orderOfCasesDep.length>0 ? orderOfCasesDep[0].orderOfCases : '?';
             departmentsSortableStructure.push(newDep);
         }
         var options = "";
@@ -20,7 +38,7 @@ let France = {
 
         options += `<option selected="selected" value="0">France</option>`;
         departmentsSortableStructure.forEach(element => {           
-            options += `<option value="` + element.code +`">`+element.formatted_name+`</option>`;            
+            options += `<option value="` + element.code +`">`+element.formatted_name+ ` ` +element.orderOfCases+`</option>`;            
         });
         return options;//before + options + after;
     },
@@ -102,8 +120,7 @@ let France = {
         page_container = await DataGraphTab.render();       
         var regionsSelect = document.getElementById('regionsSelect');
         var radioTipoCaso = document.getElementById('radioTipoCaso');
-        regionsSelect.innerHTML = await France.getComboRegioni();
-        radioTipoCaso.innerHTML = France.getComboTipoCaso();
+
                      
         var canvas = document.getElementById('myChart');
         //Initialize empty chart
@@ -147,6 +164,8 @@ let France = {
         var covid19Data = Utils.csvToJson(covid19DataCsv);
         
         covid19Data = covid19Data.filter(function(obj){if (obj.jour) return obj});
+        regionsSelect.innerHTML = await France.getComboRegioni(covid19Data);
+        radioTipoCaso.innerHTML = France.getComboTipoCaso();
         France.updateMyChart(myChart, covid19Data);       
         return "";
     },
