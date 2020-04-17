@@ -31,3 +31,5 @@ src/data/dpc-covid19-ita-andamento-nazionale.json
 src/data/dpc-covid19-ita-province.json
 
 src/data/dpc-covid19-ita-regioni.json
+
+package.json

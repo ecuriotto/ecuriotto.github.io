@@ -7,7 +7,7 @@ let France = {
     getComboRegioni: async () => {
         var response = await fetch(`../../data/french-regions-departments.json`);
         let regions = await response.json();
-        //console.log(regions);
+        console.log(regions);
         var departmentCodes = Object.keys(regions.departments);
         var departmentsSortableStructure = [];
         for(var depOrig in regions.departments){
@@ -18,13 +18,9 @@ let France = {
         var options = "";
         departmentsSortableStructure=departmentsSortableStructure.sort((a,b)=> (a.name > b.name) ? 1 : -1);
 
-        departmentsSortableStructure.forEach(element => {
-            if(element.code=="38"){
-                options += `<option selected="selected" value="` + element.code +`">`+element.formatted_name+`</option>`;
-            }
-            else{
-                options += `<option value="` + element.code +`">`+element.formatted_name+`</option>`;
-            } 
+        options += `<option selected="selected" value="0">France</option>`;
+        departmentsSortableStructure.forEach(element => {           
+            options += `<option value="` + element.code +`">`+element.formatted_name+`</option>`;            
         });
         return options;//before + options + after;
     },
@@ -40,11 +36,8 @@ let France = {
     updateMyChart  : (myChart, covid19Data) => {
 
         //var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
-        const varLabels = [...new Set(covid19Data.map(item => item.jour.substring(5,10)))];
-        
+        const varLabels = [...new Set(covid19Data.map(item => item.jour.substring(5,10)))];        
         var regions = France.getRegionsSelected();
-
-
         var maxRegion = []; 
         //console.log('updateMyChart');
         var tipoCaso = document.querySelector('input[name="tipoCasoRadio"]:checked').value;
@@ -55,17 +48,24 @@ let France = {
         rad: Total amount of patient that returned home
         dc: Total amout of deaths at the hospital
         */
+       //console.log(covid19Data);
         var tipoMisura = {"hosp":" Number of people currently hospitalized","rea":"Number of people currently in resuscitation or critical care","rad":"Total amount of patient that returned home","dc":"Total amout of deaths at the hospital"};
         myChart.data.datasets=[];
-
-        var dataTable = document.getElementById('dataTable');
-        
+        var dataTable = document.getElementById('dataTable');       
         dataTable.innerHTML = France.getTableData(covid19Data, regions);
+
         var indexRegion = 0;
         Object.keys(tipoMisura).forEach(createLine);
 
         function createLine(tipoMisuraKey, index){
-            var varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
+            var varData =[];
+            if(regions[0]==0){
+                varData= getFranceTotal(tipoMisuraKey);
+                //varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
+            }
+            else{
+                varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
+            }    
             
             maxRegion.push(Math.max(...varData));         
             var colorValues = Object.values(Utils.chartColors());           
@@ -83,9 +83,19 @@ let France = {
                 }); 
             indexRegion++;                 
         }
+        function getFranceTotal(tipoMisuraKey){
+            var covid19DataFiltered = covid19Data.filter(function(objMap){return objMap["sexe"]==tipoCaso});//.map(function(objMap){return objMap[tipoMisuraKey]})
+            var covid19DataFrance = [];
+            varLabels.forEach(function(jourDate){
+                var covid19DataFilteredByDate = covid19DataFiltered.filter(function(objMap){return objMap['jour'].substring(5,10)==jourDate})
+                covid19DataFrance.push(covid19DataFilteredByDate.reduce((prev, cur) => prev + parseInt(cur[tipoMisuraKey]), 0));               
+            });
+            return covid19DataFrance;
+        }
         myChart.options.scales.yAxes[0].ticks.stepSize=Utils.getStepSize(maxRegion);
         myChart.update();
     },
+
     render : async () => {
 
         var page_container = document.getElementById('page_container');
