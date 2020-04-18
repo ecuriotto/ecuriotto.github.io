@@ -1,0 +1,630 @@
+{
+  "regions": {
+    "alsace": [
+      67,
+      68
+    ],
+    "aquitaine": [
+      40,
+      47,
+      33,
+      24,
+      64
+    ],
+    "auvergne": [
+      43,
+      3,
+      15,
+      63
+    ],
+    "basse-normandie": [
+      14,
+      61,
+      50
+    ],
+    "bourgogne": [
+      21,
+      58,
+      71,
+      89
+    ],
+    "bretagne": [
+      29,
+      35,
+      22,
+      56
+    ],
+    "centre": [
+      45,
+      37,
+      41,
+      28,
+      36,
+      18
+    ],
+    "champagne-ardenne": [
+      10,
+      8,
+      52,
+      51
+    ],
+    "corse": [
+      "2b",
+      "2a"
+    ],
+    "franche-compte": [
+      39,
+      25,
+      70,
+      90
+    ],
+    "haute-normandie": [
+      27,
+      76
+    ],
+    "languedoc-roussillon": [
+      48,
+      30,
+      34,
+      11,
+      66
+    ],
+    "limousin": [
+      19,
+      23,
+      87
+    ],
+    "lorraine": [
+      55,
+      54,
+      57,
+      88
+    ],
+    "midi-pyrennees": [
+      46,
+      32,
+      31,
+      12,
+      9,
+      65,
+      81,
+      82
+    ],
+    "nord-pas-de-calais": [
+      62,
+      59
+    ],
+    "pays-de-la-loire": [
+      49,
+      44,
+      72,
+      53,
+      85
+    ],
+    "picardie": [
+      2,
+      60,
+      80
+    ],
+    "poitou-charentes": [
+      17,
+      16,
+      86,
+      79
+    ],
+    "provences-alpes-cote-dazur": [
+      4,
+      5,
+      6,
+      13,
+      84,
+      83
+    ],
+    "rhones-alpes": [
+      38,
+      42,
+      26,
+      7,
+      1,
+      74,
+      73,
+      69
+    ],
+    "ile-de-france": [
+      77,
+      75,
+      78,
+      93,
+      92,
+      91,
+      95,
+      94
+    ]
+  },
+  "departments": {
+    "2a": {
+      "name": "Corse-du-Sud",
+      "formatted_name": "corse-du-sud",
+      "population": "149,234"
+    },
+    "2b": {
+      "name": "Haute-Corse",
+      "formatted_name": "haute-corse",
+      "population": "170,974"
+    },
+    "01": {
+      "name": "Ain",
+      "formatted_name": "ain",
+      "population": "619,497"
+    },
+    "02": {
+      "name": "Aisne",
+      "formatted_name": "aisne",
+      "population": "540,067"
+    },
+    "03": {
+      "name": "Allier",
+      "formatted_name": "allier",
+      "population": "343,431"
+    },
+    "04": {
+      "name": "Alpes-de-Haute Provence",
+      "formatted_name": "alpes-de-haute-provence",
+      "population": "161,916"
+    },
+    "05": {
+      "name": "Hautes-Alpes",
+      "formatted_name": "hautes-alpes",
+      "population": "139,279"
+    },
+    "06": {
+      "name": "Alpes Maritimes",
+      "formatted_name": "alpes-maritimes",
+      "population": "1,080,771"
+    },
+    "07": {
+      "name": "Ardèche",
+      "formatted_name": "ardeche",
+      "population": "320,379"
+    },
+    "08": {
+      "name": "Ardennes",
+      "formatted_name": "ardennes",
+      "population": "280,907"
+    },
+    "09": {
+      "name": "Ariège",
+      "formatted_name": "ariege",
+      "population": "152,684"
+    },
+    "10": {
+      "name": "Aube",
+      "formatted_name": "aube",
+      "population": "306,581"
+    },
+    "11": {
+      "name": "Aude",
+      "formatted_name": "aude",
+      "population": "364,877"
+    },
+    "12": {
+      "name": "Aveyron",
+      "formatted_name": "aveyron",
+      "population": "277,740"
+    },
+    "13": {
+      "name": "Bouches-du-Rhône",
+      "formatted_name": "bouches-du-rhone",
+      "population": "1,993,177"
+    },
+    "14": {
+      "name": "Calvados",
+      "formatted_name": "calvados",
+      "population": "689,945"
+    },
+    "15": {
+      "name": "Cantal",
+      "formatted_name": "cantal",
+      "population": "147,035"
+    },
+    "16": {
+      "name": "Charente",
+      "formatted_name": "charente",
+      "population": "353,482"
+    },
+    "17": {
+      "name": "Charente-Maritime",
+      "formatted_name": "charente-maritime",
+      "population": "633,417"
+    },
+    "18": {
+      "name": "Cher",
+      "formatted_name": "cher",
+      "population": "311,650"
+    },
+    "19": {
+      "name": "Corrèze",
+      "formatted_name": "correze",
+      "population": "240,781"
+    },
+    "20": {
+      "name": "Corse",
+      "formatted_name": "corse"
+    },
+    "21": {
+      "name": "Côte d'Or",
+      "formatted_name": "cote-d-or",
+      "population": "529,761"
+    },
+    "22": {
+      "name": "Côtes d'Armor",
+      "formatted_name": "cotes-d-armor",
+      "population": "597,085"
+    },
+    "23": {
+      "name": "Creuse",
+      "formatted_name": "creuse",
+      "population": "120,872"
+    },
+    "24": {
+      "name": "Dordogne",
+      "formatted_name": "dordogne",
+      "population": "416,909"
+    },
+    "25": {
+      "name": "Doubs",
+      "formatted_name": "doubs",
+      "population": "533,320"
+    },
+    "26": {
+      "name": "Drôme",
+      "formatted_name": "drome",
+      "population": "494,712"
+    },
+    "27": {
+      "name": "Eure",
+      "formatted_name": "eure",
+      "population": "595,043"
+    },
+    "28": {
+      "name": "Eure-et-Loire",
+      "formatted_name": "eure-et-loire",
+      "population": "432,967"
+    },
+    "29": {
+      "name": "Finistère",
+      "formatted_name": "finistere",
+      "population": "903,921"
+    },
+    "30": {
+      "name": "Gard",
+      "formatted_name": "gard",
+      "population": "733,201"
+    },
+    "31": {
+      "name": "Haute-Garonne",
+      "formatted_name": "haute-garonne",
+      "population": "1,298,562"
+    },
+    "32": {
+      "name": "Gers",
+      "formatted_name": "gers",
+      "population": "190,276"
+    },
+    "33": {
+      "name": "Gironde",
+      "formatted_name": "gironde",
+      "population": "1,505,517"
+    },
+    "34": {
+      "name": "Hérault",
+      "formatted_name": "herault",
+      "population": "1,092,331"
+    },
+    "35": {
+      "name": "Ille-et-Vilaine",
+      "formatted_name": "ille-et-vilaine",
+      "population": "1,019,923"
+    },
+    "36": {
+      "name": "Indre",
+      "formatted_name": "indre",
+      "population": "228,091"
+    },
+    "37": {
+      "name": "Indre-et-Loire",
+      "formatted_name": "indre-et-loire",
+      "population": "600,252"
+    },
+    "38": {
+      "name": "Isère",
+      "formatted_name": "isere",
+      "population": "1,235,387"
+    },
+    "39": {
+      "name": "Jura",
+      "formatted_name": "jura",
+      "population": "260,502"
+    },
+    "40": {
+      "name": "Landes",
+      "formatted_name": "landes",
+      "population": "397,226"
+    },
+    "41": {
+      "name": "Loir-et-Cher",
+      "formatted_name": "loir-et-cher",
+      "population": "332,001"
+    },
+    "42": {
+      "name": "Loire",
+      "formatted_name": "loire",
+      "population": "756,715"
+    },
+    "43": {
+      "name": "Haute-Loire",
+      "formatted_name": "haute-loire",
+      "population": "226,203"
+    },
+    "44": {
+      "name": "Loire-Atlantique",
+      "formatted_name": "loire-atlantique",
+      "population": "1,328,620"
+    },
+    "45": {
+      "name": "Loiret",
+      "formatted_name": "loiret",
+      "population": "665,587"
+    },
+    "46": {
+      "name": "Lot",
+      "formatted_name": "lot",
+      "population": "173,758"
+    },
+    "47": {
+      "name": "Lot-et-Garonne",
+      "formatted_name": "lot-et-garonne",
+      "population": "333,180"
+    },
+    "48": {
+      "name": "Lozère",
+      "formatted_name": "lozere",
+      "population": "76,607"
+    },
+    "49": {
+      "name": "Maine-et-Loire",
+      "formatted_name": "maine-et-loire",
+      "population": "800,191"
+    },
+    "50": {
+      "name": "Manche",
+      "formatted_name": "manche",
+      "population": "499,919"
+    },
+    "51": {
+      "name": "Marne",
+      "formatted_name": "marne",
+      "population": "569,999"
+    },
+    "52": {
+      "name": "Haute-Marne",
+      "formatted_name": "haute-marne",
+      "population": "181,521"
+    },
+    "53": {
+      "name": "Mayenne",
+      "formatted_name": "mayenne",
+      "population": "307,500"
+    },
+    "54": {
+      "name": "Meurthe-et-Moselle",
+      "formatted_name": "meurthe-et-moselle",
+      "population": "731,004"
+    },
+    "55": {
+      "name": "Meuse",
+      "formatted_name": "meuse",
+      "population": "192,094"
+    },
+    "56": {
+      "name": "Morbihan",
+      "formatted_name": "morbihan",
+      "population": "737,778"
+    },
+    "57": {
+      "name": "Moselle",
+      "formatted_name": "moselle",
+      "population": "1,046,873"
+    },
+    "58": {
+      "name": "Nièvre",
+      "formatted_name": "nievre",
+      "population": "215,221"
+    },
+    "59": {
+      "name": "Nord",
+      "formatted_name": "nord",
+      "population": "2,595,536"
+    },
+    "60": {
+      "name": "Oise",
+      "formatted_name": "oise",
+      "population": "815,400"
+    },
+    "61": {
+      "name": "Orne",
+      "formatted_name": "orne",
+      "population": "288,848"
+    },
+    "62": {
+      "name": "Pas-de-Calais",
+      "formatted_name": "pas-de-calais",
+      "population": "1,465,205"
+    },
+    "63": {
+      "name": "Puy-de-Dôme",
+      "formatted_name": "puy-de-dome",
+      "population": "640,999"
+    },
+    "64": {
+      "name": "Pyrenées-Atlantiques",
+      "formatted_name": "pyrenees-atlantiques",
+      "population": "664,057"
+    },
+    "65": {
+      "name": "Hautes-Pyrenées",
+      "formatted_name": "hautes-pyrenees",
+      "population": "228,868"
+    },
+    "66": {
+      "name": "Pyrenées-Orientales",
+      "formatted_name": "pyrenees-orientales",
+      "population": "462,705"
+    },
+    "67": {
+      "name": "Bas-Rhin",
+      "formatted_name": "bas-rhin",
+      "population": "1,109,460"
+    },
+    "68": {
+      "name": "Haut-Rhin",
+      "formatted_name": "haut-rhin",
+      "population": "758,723"
+    },
+    "69": {
+      "name": "Rhône",
+      "formatted_name": "rhone",
+      "population": "1,779,845"
+    },
+    "70": {
+      "name": "Haute-Saône",
+      "formatted_name": "haute-saone",
+      "population": "238,956"
+    },
+    "71": {
+      "name": "Saône-et-Loire",
+      "formatted_name": "saone-et-loire",
+      "population": "556,222"
+    },
+    "72": {
+      "name": "Sarthe",
+      "formatted_name": "sarthe",
+      "population": "569,035"
+    },
+    "73": {
+      "name": "Savoie",
+      "formatted_name": "savoie",
+      "population": "423,715"
+    },
+    "74": {
+      "name": "Haute-Savoie",
+      "formatted_name": "haute-savoie",
+      "population": "769,677"
+    },
+    "75": {
+      "name": "Paris",
+      "formatted_name": "paris",
+      "population": "2,229,621"
+    },
+    "76": {
+      "name": "Seine-Maritime",
+      "formatted_name": "seine-maritime",
+      "population": "1,254,609"
+    },
+    "77": {
+      "name": "Seine-et-Marne",
+      "formatted_name": "seine-et-marne",
+      "population": "1,365,200"
+    },
+    "78": {
+      "name": "Yvelines",
+      "formatted_name": "yvelines",
+      "population": "1,418,484"
+    },
+    "79": {
+      "name": "Deux-Sèvres",
+      "formatted_name": "deux-sevres",
+      "population": "371,632"
+    },
+    "80": {
+      "name": "Somme",
+      "formatted_name": "somme",
+      "population": "571,675"
+    },
+    "81": {
+      "name": "Tarn",
+      "formatted_name": "tarn",
+      "population": "381,927"
+    },
+    "82": {
+      "name": "Tarn-et-Garonne",
+      "formatted_name": "tarn-et-garonne",
+      "population": "250,342"
+    },
+    "83": {
+      "name": "Var",
+      "formatted_name": "var",
+      "population": "1,028,583"
+    },
+    "84": {
+      "name": "Vaucluse",
+      "formatted_name": "vaucluse",
+      "population": "549,949"
+    },
+    "85": {
+      "name": "Vendée",
+      "formatted_name": "vendee",
+      "population": "655,506"
+    },
+    "86": {
+      "name": "Vienne",
+      "formatted_name": "vienne",
+      "population": "431,248"
+    },
+    "87": {
+      "name": "Haute-Vienne",
+      "formatted_name": "haute-vienne",
+      "population": "375,856"
+    },
+    "88": {
+      "name": "Vosges",
+      "formatted_name": "vosges",
+      "population": "375,226"
+    },
+    "89": {
+      "name": "Yonne",
+      "formatted_name": "yonne",
+      "population": "341,483"
+    },
+    "90": {
+      "name": "Territoire de Belfort",
+      "formatted_name": "territoire-de-belfort",
+      "population": "144,318"
+    },
+    "91": {
+      "name": "Essonne",
+      "formatted_name": "essonne",
+      "population": "1,253,931"
+    },
+    "92": {
+      "name": "Hauts-de-Seine",
+      "formatted_name": "hauts-de-seine",
+      "population": "1,591,403"
+    },
+    "93": {
+      "name": "Seine-Saint-Denis",
+      "formatted_name": "seine-saint-denis",
+      "population": "1,552,482"
+    },
+    "94": {
+      "name": "Val-de-Marne",
+      "formatted_name": "val-de-marne",
+      "population": "1,354,005"
+    },
+    "95": {
+      "name": "Val-d'Oise",
+      "formatted_name": "val-d-oise",
+      "population": "1,194,681"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import DataGraphTab from './DataGraphTab.js'
 
 let France = {
     getComboRegioni: async (covid19Data) => {
-        var response = await fetch(`../../data/french-regions-departments.json`);
+        var response = await fetch(`../../data/french-regions-departments-population.json`);
         let regions = await response.json();
         console.log(regions);
 
@@ -21,16 +21,30 @@ let France = {
         });
         //console.log(lastDay.jour);
         var orderOfCases =1;
-        var depSortedByHospCasesInLastDay = covid19Data.filter(function(obj){return obj.sexe == '0'}).filter(function(obj){return obj.jour == lastDay.jour}).sort((a,b)=> (parseInt(a.hosp) < parseInt(b.hosp)) ? 1 : -1).map((function(objMap){objMap.orderOfCases = orderOfCases++; return objMap}));
-        console.log(depSortedByHospCasesInLastDay)
-        var departmentCodes = Object.keys(regions.departments);
+        var depByAllSexInLastDay = covid19Data.filter(function(obj){return obj.sexe == '0'}).filter(function(obj){return obj.jour == lastDay.jour}).filter(function(obj){return obj.dep.length<3});
+        var depSortedByHospCasesInLastDay = depByAllSexInLastDay.sort((a,b)=> {
+
+            if(a&&b){
+                var populationA = parseInt(regions.departments[a.dep.toLowerCase()].population.replace(/,/g,''));
+                var populationB = parseInt(regions.departments[b.dep.toLowerCase()].population.replace(/,/g,'')); 
+                                                       
+                return (parseInt(a.hosp)/populationA > parseInt(b.hosp)/populationB ? -1 : 1)
+            }
+            else
+               return 1; 
+        }).map((function(objMap){
+            objMap.orderOfCases = orderOfCases++; 
+            objMap.population = parseInt(regions.departments[objMap.dep.toLowerCase()].population.replace(/,/g,''));
+            console.log(regions.departments[objMap.dep.toLowerCase()].population.replace(/,/g,'')); 
+            return objMap}));
+
         var departmentsSortableStructure = [];
         for(var depOrig in regions.departments){
             var newDep = regions.departments[depOrig];
             newDep.code = depOrig;
             var orderOfCasesDep = depSortedByHospCasesInLastDay.filter(function(obj){return obj.dep==newDep.code});
-            console.log(newDep.code);
             newDep.orderOfCases = orderOfCasesDep.length>0 ? orderOfCasesDep[0].orderOfCases : '?';
+
             departmentsSortableStructure.push(newDep);
         }
         var options = "";
