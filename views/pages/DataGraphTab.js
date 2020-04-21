@@ -15,13 +15,13 @@ let DataGraphTab = {
                 <div class="tabs is-toggle is-centered">
                     <ul>
                         <li class="is-active">
-                            <a>
+                            <a class="button is-small">
                             <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
                             <span>Grafico</span>
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a class="button is-small">
                             <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>
                             <span>Dati</span>
                             </a>

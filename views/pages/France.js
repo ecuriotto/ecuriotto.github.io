@@ -170,9 +170,6 @@ let France = {
             France.updateMyChart(myChart, covid19Data);
         },false);
         
-        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200405-190003/donnees-hospitalieres-covid19-2020-04-05-19h00.csv`);
-        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200406-190011/donnees-hospitalieres-covid19-2020-04-06-19h00.csv`);
-        //const response = await fetch(`https://static.data.gouv.fr/resources/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/20200407-190012/donnees-hospitalieres-covid19-2020-04-07-19h00.csv`);
         const response = await fetch(`../../data/donneesFr.csv`);
 
         let covid19DataCsv = await response.text();

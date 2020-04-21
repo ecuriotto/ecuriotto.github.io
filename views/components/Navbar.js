@@ -30,13 +30,13 @@ let Navbar = {
                                 France
                             </a>                           
                         </div>
-                        <div class="navbar-end">
+                        
+                        <!--<div class="navbar-end">-->
                             <!--<div class="navbar-item">-->
                                 <!--<a class="navbar-item" href="https://presse.inserm.fr/">-->
-                                    <img src="./externalLib/images/coronavirus.jpg" alt="https://presse.inserm.fr/" width="132" height="58" margin:0px; padding: 0px;>
-                                <!--</a>-->                 
+                                    <!--<img src="./externalLib/images/coronavirus.jpg" alt="https://presse.inserm.fr/" width="132" height="58" margin:0px; padding: 0px;>-->                               <!--</a>-->                 
                            <!-- </div> -->
-                        </div>
+                        <!--</div>-->
                     </div>
                 </div>
             </nav>
