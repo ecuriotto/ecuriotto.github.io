@@ -48,14 +48,12 @@ let Regioni = {
 
         myChart.data.datasets=[];
 
-        var dataTable = document.getElementById('dataTable');
-        
-        dataTable.innerHTML = Regioni.getTableData(covid19Data, regions);
+
         regions.forEach(createLine);
         
         function createLine(region, index){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_regione"]==region;}).map(function(objMap){return objMap[tipoCaso]})
-            console.log(varData);
+            //console.log(varData);
             maxRegion.push(Math.max(...varData));
             var indexRegion = Utils.regioni().indexOf(region);           
             var colorValues = Object.values(Utils.chartColors());
@@ -74,6 +72,8 @@ let Regioni = {
         }
         myChart.options.scales.yAxes[0].ticks.stepSize=Utils.getStepSize(maxRegion);
         myChart.update();
+        var dataTable = document.getElementById('dataTable');        
+        dataTable.innerHTML = Regioni.getTableData(covid19Data, regions);
     },
     render : async () => {
 
@@ -112,7 +112,7 @@ let Regioni = {
         });
         var regionsSelect = document.getElementById('regionsSelect');
         var radioTipoCasoSelect = document.getElementById('globalRadioId');
-        console.log(radioTipoCasoSelect);
+        //console.log(radioTipoCasoSelect);
         radioTipoCasoSelect.addEventListener('click',function() {
             Regioni.updateMyChart(myChart, covid19Data);
         },false);
@@ -135,7 +135,6 @@ let Regioni = {
     getRegionsSelected: () => {
         
         var regionsSelect = document.getElementById('regionsSelect');
-        console.log(regionsSelect);
         var selections = [];
         if(typeof regionsSelect=="string")
             selections.push(regionsSelect.value);

@@ -7,8 +7,6 @@ let France = {
     getComboRegioni: async (covid19Data) => {
         var response = await fetch(`../../data/french-regions-departments-population.json`);
         let regions = await response.json();
-        console.log(regions);
-
         //We want to get the order of departments for hosp cases
         //First Let's get the last day of the array
         var lastDay = covid19Data.reduce(function(prev,cur){
@@ -35,7 +33,6 @@ let France = {
         }).map((function(objMap){
             objMap.orderOfCases = orderOfCases++; 
             objMap.population = parseInt(regions.departments[objMap.dep.toLowerCase()].population.replace(/,/g,''));
-            console.log(regions.departments[objMap.dep.toLowerCase()].population.replace(/,/g,'')); 
             return objMap}));
 
         var departmentsSortableStructure = [];
@@ -83,26 +80,30 @@ let France = {
        //console.log(covid19Data);
         var tipoMisura = {"hosp":" Number of people currently hospitalized","rea":"Number of people currently in resuscitation or critical care","rad":"Total amount of patient that returned home","dc":"Total amout of deaths at the hospital"};
         myChart.data.datasets=[];
-        var dataTable = document.getElementById('dataTable');       
-        dataTable.innerHTML = France.getTableData(covid19Data, regions);
 
+        var varDataFiltered = {};
+        varDataFiltered.date=varLabels;
         var indexRegion = 0;
         Object.keys(tipoMisura).forEach(createLine);
 
+
+        var dataTable = document.getElementById('dataTable');       
+        dataTable.innerHTML = France.getTableData(varDataFiltered, regions[0]);
         function createLine(tipoMisuraKey, index){
             var varData =[];
-            if(regions[0]==0){
+            if(regions[0].value==0){
                 varData= getFranceTotal(tipoMisuraKey);
                 //varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
             }
             else{
-                varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0];}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
+                varData = covid19Data.filter(function(obj){return obj["dep"]==regions[0].value;}).filter(function(objMap){return objMap["sexe"]==tipoCaso}).map(function(objMap){return objMap[tipoMisuraKey]})
             }    
-            
+            varDataFiltered[tipoMisuraKey] = varData;
+
             maxRegion.push(Math.max(...varData));         
             var colorValues = Object.values(Utils.chartColors());           
             var color = colorValues[indexRegion];
-            myChart.options.title.text = regions[0];
+            myChart.options.title.text = regions[0].text.toUpperCase();
             myChart.options.title.fontSize = 16;
             myChart.options.title.display = true;
             myChart.data.labels= varLabels;
@@ -187,13 +188,14 @@ let France = {
         
         var regionsSelect = document.getElementById('regionsSelect');
         var selections = [];
+        
         if(typeof regionsSelect=="string")
             selections.push(regionsSelect.value);
         else{    
             for (var i=0, iLen=regionsSelect.selectedOptions.length; i<iLen; i++) {
                 var opt = regionsSelect.selectedOptions[i];       
                 if (opt.selected) {
-                    selections.push(opt.value || opt.text);
+                    selections.push(opt);
                 }
             }
         } 
@@ -202,37 +204,29 @@ let France = {
     after_render: async () => {
         
     },
-    getTableData: (covid19Data, area) =>{
+    getTableData: (varDataFiltered, region) =>{
                
+    //    console.log(JSON.stringify(varDataFiltered));
         
         //area can be an array of the regions or province selected
         var html = '';
-        area.forEach(element => {
-            var covid19DataArea = covid19Data.filter(function(obj){return obj["dep"]==element;})
-            var covid19DataOrdered=covid19DataArea.sort((a,b) => (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0)); 
-            html += '<section class="tab-content"><div class="has-text-link has-text-weight-bold is-uppercase">'+element+'</div><br><table class="table is-striped is-narrow is-bordered">';
-            html += '<thead><tr>';
-            
-            for( var j in covid19DataOrdered[0] ) {
-                if(Utils.tipoCaso().includes(j)||j=="data"){
-                    html += '<th class="is-size-7">' + Utils.humanize(j).replace(' ','<BR>') + '</th>';
-                }
-            }
-            html += '</tr></thead><tbody>';
-            for( var i = 0; i < covid19DataOrdered.length; i++) {
+        //var covid19DataOrdered=covid19DataArea.sort((a,b) => (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0)); 
+        html += '<section class="tab-content"><div class="has-text-link has-text-weight-bold is-uppercase">'+region.text+'</div><br><table class="table is-striped is-narrow is-bordered">';
+        html += '<thead><tr>';
+        var keys =  Object.keys(varDataFiltered);
+        for( var j of keys ) {           
+                html += '<th class="is-size-7">' + j + '</th>';
+        }
+        
+        html += '</tr></thead><tbody>';
+        for( var i = varDataFiltered["date"].length-1; i >=0 ; i--) {
             html += '<tr>';
-            for( var j in covid19DataOrdered[i] ) {
-                if(Utils.tipoCaso().includes(j)){
-                    html += '<td class="is-size-7">' + covid19DataOrdered[i][j] + '</td>';
-                }
-                if(j=="data"){
-                    html += '<td class="is-size-7">' + covid19DataOrdered[i][j].substring(5,10) + '</td>';
-                }
+            for( var j of keys ) {      
+                html += '<td class="is-size-7">' + varDataFiltered[j][i] + '</td>';
             }
             html += '</tr>';
-            }
-            html += '</tbody></table></section><br>';
-        });
+        }
+        html += '</tbody></table></section><br>';      
         return html;
       }
     

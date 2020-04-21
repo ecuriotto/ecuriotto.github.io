@@ -39,8 +39,8 @@ const router = async () => {
     await Navbar.after_render();
 
 
-    footer.innerHTML = await Bottombar.render();
-    await Bottombar.after_render();
+    //footer.innerHTML = await Bottombar.render();
+    //await Bottombar.after_render();
 
 
     // Get the parsed URl from the addressbar

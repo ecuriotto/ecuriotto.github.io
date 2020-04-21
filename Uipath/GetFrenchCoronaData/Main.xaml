@@ -1,4 +1,12 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="674,739.333333333333" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_useless" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>674,739.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
       <x:String>System.Activities</x:String>
@@ -101,7 +109,7 @@
               <av:PointCollection x:Key="ConnectorLocation">280,341.666666666667 280,371.666666666667 270,371.666666666667 270,433.666666666667</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Download covid &#xD;&#xA;France data file" DisplayName="Attach Window données hospitalieres" sap:VirtualizedContainerService.HintSize="200,98" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="cbccbbfba89f9004aad7e4c1aa4cb99d" Selector="&lt;html app='chrome.exe' title='Données hospitalières relatives à l&amp;apos;épidémie de COVID-19 - data.*' /&gt;">
+          <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Download covid &#xA;France data file" DisplayName="Attach Window données hospitalieres" sap:VirtualizedContainerService.HintSize="200,98" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="cbccbbfba89f9004aad7e4c1aa4cb99d" Selector="&lt;html app='chrome.exe' title='Données hospitalières relatives à l&amp;apos;épidémie de COVID-19 - data.*' /&gt;">
             <ui:WindowScope.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
@@ -153,7 +161,7 @@
                   <av:Size x:Key="ShapeSize">200,131.333333333333</av:Size>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the last file in the downloads to Application area&#xD;&#xA;" Destination="C:\projects\126-JavascriptSample\vanillajs-spa\ecuriotto.github.io\data\donneesFr.csv" DisplayName="Move the downloaded file " sap:VirtualizedContainerService.HintSize="200,131.333333333333" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="True" Path="[Directory.GetFiles(&quot;C:\Users\bonitasoft\Downloads&quot;).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()]">
+              <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the last file in the downloads to Application area&#xA;" Destination="C:\projects\126-JavascriptSample\vanillajs-spa\ecuriotto.github.io\data\donneesFr.csv" DisplayName="Move the downloaded file " sap:VirtualizedContainerService.HintSize="200,131.333333333333" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="True" Path="[Directory.GetFiles(&quot;C:\Users\bonitasoft\Downloads&quot;).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
