@@ -204,11 +204,15 @@ let France = {
             });
         },false)
         
-        const response = await fetch(`../../data/donneesFr.csv`);
+        //const response = await fetch(`../../data/donneesFr.csv`);
+        let start = new Date().getTime();
+        const response = await fetch(`https://www.data.gouv.fr/fr/datasets/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7`)
 
         let covid19DataCsv = await response.text();
         var covid19Data = Utils.csvToJson(covid19DataCsv);
-        
+        let now = new Date().getTime();
+        let lapse = now - start;
+        console.log("Time to load file: " + lapse);
         covid19Data = covid19Data.filter(function(obj){if (obj.jour) return obj});
         regionsSelect.innerHTML = await France.getComboRegioni(covid19Data);
         radioTipoCaso.innerHTML = France.getComboTipoCaso();
