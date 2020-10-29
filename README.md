@@ -4,7 +4,9 @@ It's made without js framework and it's a single page app
 The skeleton has been forked by Rishav Sharan
 No frameworks or build tools are needed to run this.
 But one will need a web server to serve the html and the js to the browser.
-We can use live-server
+We can use live-server: live-server --port:8082
+
+https://dev.to/rishavs/making-a-single-page-app-in-ye-good-olde-js-es6-3eng
 
 ## License (MIT)
 Copyright 2020 , Enrico Curiotto

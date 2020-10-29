@@ -11,6 +11,8 @@ let Italia = {
         canvas.width=200;
         canvas.height=200;
         page_container.appendChild(canvas);
+        var last14NuoviPositiviHtml = document.createElement('last14NuoviPositiviEl');
+        page_container.appendChild(last14NuoviPositiviHtml);
         
         //page_container.style.height = '1200px';
         //page_container.style.width = '1200px';
@@ -22,7 +24,23 @@ let Italia = {
         let covid19Data = await response.json();
         var varLabels = covid19Data.map(function(obj){return obj["data"].substring(5,10);});
         
-        var nuoviAttualmentePositivi = covid19Data.map(function(obj){return obj["nuovi_attualmente_positivi"];});
+        var nuoviAttualmentePositivi = covid19Data.map(function(obj){return obj["nuovi_positivi"];});
+        var last21NuoviPositivi = nuoviAttualmentePositivi.slice(-21);
+        var last14NuoviPositivi = nuoviAttualmentePositivi.slice(-14);
+        var last14NuoviPositiviCoef = last14NuoviPositivi.reduce(function(total,curval){return total+curval})/600;
+        console.log(last14NuoviPositiviCoef);
+        var last14NuoviPositiviHtmlEl = '<br><p class="subtitle is-3">Last 14 days New positives</p><br><div class="table-container"><table class="table is-bordered"><tr>';
+        for(var el in last21NuoviPositivi){
+            if(el>6)
+                last14NuoviPositiviHtmlEl+='<td class="has-text-link">'+last21NuoviPositivi[el]+'</td>';
+            else
+                last14NuoviPositiviHtmlEl+='<td>'+last21NuoviPositivi[el]+'</td>';
+        }
+        last14NuoviPositiviHtmlEl+='</tr><tr><td>Coef:</td><td class="has-text-link has-background-warning subtitle is-3" colspan="2">'+last14NuoviPositiviCoef+'</td></tr></table></div>'
+
+
+
+        last14NuoviPositiviHtml.innerHTML = last14NuoviPositiviHtmlEl;
         var deceduti = covid19Data.map(function(obj){return obj["deceduti"];});
         var deltaDeceduti = deceduti.map((curr, i, array) => {
             return curr-= array[i-1]? array[i-1] : curr
@@ -35,6 +53,13 @@ let Italia = {
         var deltaRicoveratiConSintomi=ricoveratiConSintomi.map((curr, i, array) => {
             return curr-= array[i-1]? array[i-1] : curr
         });
+        var tamponi = covid19Data.map(function(obj){return obj["tamponi"];});
+        var deltaTamponi = tamponi.map((curr, i, array) => {
+            curr-= array[i-1]? array[i-1] : curr
+            return curr/100
+        }); 
+
+        
 
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -77,6 +102,14 @@ let Italia = {
                     data: deltaDimessiGuariti,
                     backgroundColor: Utils.chartColors().orange,
                     borderColor:Utils.chartColors().orange,
+                    //borderWidth: 1,
+                    fill : false
+                },
+                {
+                    label: 'Delta Tamponi (Normalized 100)',
+                    data: deltaTamponi,
+                    backgroundColor: Utils.chartColors().black,
+                    borderColor:Utils.chartColors().black,
                     //borderWidth: 1,
                     fill : false
                 }

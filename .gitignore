@@ -33,3 +33,13 @@ src/data/dpc-covid19-ita-province.json
 src/data/dpc-covid19-ita-regioni.json
 
 package.json
+
+*.db
+
+Uipath/GetFrenchCoronaData/.local/ProjectSettings.json
+
+Uipath/GetFrenchCoronaData/.tmh/config.json
+
+Uipath/GetFrenchCoronaData/debug.log
+
+Uipath/GetFrenchCoronaData/Main.xaml

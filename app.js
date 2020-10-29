@@ -1,10 +1,8 @@
 "use strict";
 
-import Home         from './views/pages/Home.js'
 import About        from './views/pages/About.js'
 import Error404     from './views/pages/Error404.js'
 import PostShow     from './views/pages/PostShow.js'
-import Register     from './views/pages/Register.js'
 import Italia       from './views/pages/Italia.js'
 import Regioni      from './views/pages/Regioni.js'
 import Province      from './views/pages/Province.js'
@@ -19,7 +17,6 @@ const routes = {
     '/'             : Italia
     , '/about'      : About
     , '/p/:id'      : PostShow
-    , '/register'   : Register
     , '/regioni'    : Regioni
     , '/province'   : Province
     , '/france'     : France

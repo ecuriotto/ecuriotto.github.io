@@ -53,7 +53,11 @@ let Regioni = {
         
         function createLine(region, index){
             var varData = covid19Data.filter(function(obj){return obj["denominazione_regione"]==region;}).map(function(objMap){return objMap[tipoCaso]})
-            //console.log(varData);
+            if(tipoCaso=="tamponi"){
+                varData = varData.map((curr, i, array) => {
+                    return curr-= array[i-1]? array[i-1] : curr
+                });
+            }
             maxRegion.push(Math.max(...varData));
             var indexRegion = Utils.regioni().indexOf(region);           
             var colorValues = Object.values(Utils.chartColors());
